@@ -2,13 +2,13 @@ package sqlConnect;
 
 import java.sql.*;
 
-public class MySQLAccess {
+public class CommunityTableAccess {
     private Connection connection = null;
     private Statement statement = null;
     private PreparedStatement preparedStatement = null;
     private ResultSet resultSet = null;
 
-    public MySQLAccess() throws Exception {
+    public CommunityTableAccess() throws Exception {
         Class.forName("com.mysql.jdbc.Driver");
         // Setup the connection with the DB
         connection = DriverManager.getConnection(

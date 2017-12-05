@@ -14,12 +14,12 @@ public class CalculateTransferMatrix {
     public static int markovSeqLength = 3;
     public static int clusterLevel = 3;
 
-    private Map<List<Integer>, Double> transferPossibility;
+    private SequenceCount sequenceCount;
 
     public CalculateTransferMatrix() {
         dbHelper = new DBHelper();
         communities = new CommunitySet();
-        transferPossibility = new HashMap<>();
+        sequenceCount = new SequenceCount();
     }
 
     public void formCommunities() throws SQLException{
@@ -53,7 +53,6 @@ public class CalculateTransferMatrix {
             System.out.println("Community Number not correct!");
             return;
         }
-        List<List<Integer>> fullSequence = new ArrayList<>();
         for (int userId : communities.getCommunity(communityIndex).getUserGroup()) {
             ResultSet locationSequenceResultSet = dbHelper.getResult(
                     "SELECT location_id FROM NextPre.OPTICS_Seq " +
@@ -62,14 +61,20 @@ public class CalculateTransferMatrix {
             while (locationSequenceResultSet.next()) {
                 singleUserSequence.add(locationSequenceResultSet.getInt(1));
             }
-            fullSequence.add(singleUserSequence);
+            for (int i = 0; i <= singleUserSequence.size() - markovSeqLength; i++) {
+                List<Integer> sequenceList = new ArrayList<>();
+                for (int j = i; j < i + markovSeqLength; j++) {
+                    sequenceList.add(singleUserSequence.get(j));
+                }
+                sequenceCount.addSequence(sequenceList);
+            }
             locationSequenceResultSet.close();
         }
-        // TODO: How to calculate transfer possibility from fullSequence?
+        Map<List<Integer>, Double> sequencePossibility = sequenceCount.getSequenceProportion();
     }
 
     public void writeCommunitiesIntoSql() throws Exception {
-        MySQLAccess access = new MySQLAccess();
+        CommunityTableAccess access = new CommunityTableAccess();
         for (Community community : communities.getCommunities()) {
             for (int i = 0; i < community.getUserGroup().size(); i++) {
                 access.insertSQL(community.getCommunityNumber(), i + 1,
