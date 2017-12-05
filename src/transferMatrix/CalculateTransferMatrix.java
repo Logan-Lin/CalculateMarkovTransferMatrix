@@ -33,12 +33,15 @@ public class CalculateTransferMatrix {
             int index1 = communities.getCommunityIndex(user_id1);
             int index2 = communities.getCommunityIndex(user_id2);
             if (index1 == -1 && index2 == -1) {
+                // If both users are not in any community
                 communities.newCommunity(user_id1, user_id2);
             } else {
                 if (index1 != -1) {
+                    // If user1 is already in a community
                     Community community = communities.getCommunity(index1);
                     community.addUser(user_id2);
                 } else {
+                    // If user2 is already in a community
                     Community community = communities.getCommunity(index2);
                     community.addUser(user_id1);
                 }
@@ -71,6 +74,7 @@ public class CalculateTransferMatrix {
             locationSequenceResultSet.close();
         }
         Map<List<Integer>, Double> sequencePossibility = sequenceCount.getSequenceProportion();
+        // TODO: write sequence possibility information to SQL
     }
 
     public void writeCommunitiesIntoSql() throws Exception {
