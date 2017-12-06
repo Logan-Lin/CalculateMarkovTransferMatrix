@@ -73,8 +73,6 @@ public class CalculateTransferMatrix {
             }
             locationSequenceResultSet.close();
         }
-        Map<List<Integer>, Double> sequencePossibility = sequenceCount.getSequenceProportion();
-        // TODO: write sequence possibility information to SQL
     }
 
     public void writeCommunitiesIntoSql() throws Exception {
