@@ -10,10 +10,11 @@ public class Test {
         CalculateTransferMatrix testSample = new CalculateTransferMatrix();
 //        testSample.formCommunities();
 //        testSample.writeCommunitiesIntoSql();
-//        testSample.close();
 //        validateCommunities(1);
         testSample.readCommunitiesFromSQL();
         testSample.calculateTransferPossibility(1);
+        testSample.writeSequencePossibilityIntoSQL(1);
+        testSample.close();
     }
 
     public static void validateCommunities(int communityNumber) throws Exception {

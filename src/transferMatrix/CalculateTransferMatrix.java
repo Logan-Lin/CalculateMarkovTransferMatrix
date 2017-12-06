@@ -79,11 +79,28 @@ public class CalculateTransferMatrix {
 
     public void writeCommunitiesIntoSql() throws Exception {
         CommunityTableAccess access = new CommunityTableAccess();
+        access.clearCommunity();
+        access.prepareCommunityStatement();
         for (Community community : communities.getCommunities()) {
             for (int i = 0; i < community.getUserGroup().size(); i++) {
-                access.insertSQL(community.getCommunityNumber(), i + 1,
+                access.insertCommunity(community.getCommunityNumber(), i + 1,
                         community.getUserGroup().get(i));
             }
+        }
+        access.close();
+    }
+
+    public void writeSequencePossibilityIntoSQL(int communityNumber) throws Exception {
+        CommunityTableAccess access = new CommunityTableAccess();
+        access.clearSequence(communityNumber);
+        access.prepareSequenceStatement();
+        for (Map.Entry<List<Integer>, Double> entry :
+                sequenceCount.getSequenceProportion().entrySet()) {
+            StringBuilder stringBuilder = new StringBuilder();
+            for (Integer sequenceNumber : entry.getKey())
+                stringBuilder.append(sequenceNumber).append(" ");
+            String sequenceString = stringBuilder.toString().trim();
+            access.insertSequence(communityNumber, sequenceString, entry.getValue());
         }
         access.close();
     }

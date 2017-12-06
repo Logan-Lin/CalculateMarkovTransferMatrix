@@ -22,4 +22,6 @@ Actually a `Map<List<Integer>, Integer>` entity with some method to help count s
 
 ## How to use
 
-Before running any method, you should create a CalculateTransferMatrix entity. After that, firstly run formCommunities to form users to communities. Then you can run writeCommunitiesIntoSql to save community information to SQL so that next you run this project, just use readCommunitiesFromSQL to restore community data instead of calculate all over again. Finally run calculateTransferPossibility to calculate a community's Markov model's transfer matrix, and save them it to SQL (still in develop).
+Before running any method, you should create a CalculateTransferMatrix entity. After that, firstly run formCommunities to form users to communities. Then you can run writeCommunitiesIntoSql to save community information to SQL so that next you run this project, just use readCommunitiesFromSQL to restore community data instead of calculate all over again. Finally run calculateTransferPossibility to calculate a community's Markov model's transfer matrix, and save them it to SQL.
+
+> Note that every time you write information into SQL, the program will delete old information first.

@@ -14,13 +14,22 @@ public class CommunityTableAccess {
         connection = DriverManager.getConnection(
                 "jdbc:mysql://localhost/NextPre?autoReconnect=true&useSSL=false",
                 "root", "094213");
-        preparedStatement = connection.prepareStatement("INSERT INTO NextPre.Communities " +
-                "(CommunityNumber, UserSequence, UserId) " +
-                "VALUE " +
-                "(?, ?, ?)");
     }
 
-    public void insertSQL(int communityNumber, int userSequence, int userId)
+    public void prepareCommunityStatement() throws Exception {
+        preparedStatement = connection.prepareStatement(
+                "INSERT INTO NextPre.Communities " +
+                "(CommunityNumber, UserSequence, UserId) " +
+                "VALUE (?, ?, ?)");
+    }
+
+    public void prepareSequenceStatement() throws Exception {
+        preparedStatement = connection.prepareStatement(
+                "INSERT INTO NextPre.SequenceProportion " +
+                "(CommunityNo, Sequence, Proportion) VALUE (?, ?, ?)");
+    }
+
+    public void insertCommunity(int communityNumber, int userSequence, int userId)
             throws Exception {
         // Parameters start with 1
         preparedStatement.setInt(1, communityNumber);
@@ -29,10 +38,23 @@ public class CommunityTableAccess {
         preparedStatement.executeUpdate();
     }
 
-    public void clearTable() throws Exception {
+    public void insertSequence(int communityNo, String sequence, double proportion) throws Exception {
+        preparedStatement.setInt(1, communityNo);
+        preparedStatement.setString(2, sequence);
+        preparedStatement.setDouble(3, proportion);
+        preparedStatement.executeUpdate();
+    }
+
+    public void clearCommunity() throws Exception {
         preparedStatement = connection.prepareStatement(
                 "DELETE FROM NextPre.Communities");
         preparedStatement.execute();
+    }
+
+    public void clearSequence(int communityNo) throws Exception {
+        preparedStatement = connection.prepareStatement(
+                "DELETE FROM NextPre.SequenceProportion WHERE CommunityNo = " + communityNo);
+        preparedStatement.executeUpdate();
     }
 
     // You need to close the resultSet
