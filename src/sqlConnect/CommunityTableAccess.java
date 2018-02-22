@@ -29,6 +29,13 @@ public class CommunityTableAccess {
                 "(CommunityNo, Sequence, Proportion) VALUE (?, ?, ?)");
     }
 
+    public void prepareUserSequenceStatement() throws Exception {
+        preparedStatement = connection.prepareStatement(
+                "INSERT INTO NextPre.User_Seq_prop " +
+                        "(user_id, sequence, proportion) VALUE (?, ?, ?)"
+        );
+    }
+
     public void insertCommunity(int communityNumber, int userSequence, int userId)
             throws Exception {
         // Parameters start with 1
@@ -45,6 +52,13 @@ public class CommunityTableAccess {
         preparedStatement.executeUpdate();
     }
 
+    public void insertUserSequence(int userId, String sequence, double proportion) throws Exception {
+        preparedStatement.setInt(1, userId);
+        preparedStatement.setString(2, sequence);
+        preparedStatement.setDouble(3, proportion);
+        preparedStatement.executeUpdate();
+    }
+
     public void clearCommunity() throws Exception {
         preparedStatement = connection.prepareStatement(
                 "DELETE FROM NextPre.Communities");
@@ -54,7 +68,13 @@ public class CommunityTableAccess {
     public void clearSequence(int communityNo) throws Exception {
         preparedStatement = connection.prepareStatement(
                 "DELETE FROM NextPre.SequenceProportion WHERE CommunityNo = " + communityNo);
-        preparedStatement.executeUpdate();
+        preparedStatement.execute();
+    }
+
+    public void clearUserSequence(int userId) throws Exception {
+        preparedStatement = connection.prepareStatement(
+                "DELETE FROM NextPre.User_Seq_prop WHERE user_id = " + userId);
+        preparedStatement.execute();
     }
 
     // You need to close the resultSet

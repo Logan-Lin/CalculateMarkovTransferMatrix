@@ -7,14 +7,21 @@ import java.util.List;
 
 public class Test {
     public static void main(String[] args) throws Exception {
-        CalculateTransferMatrix testSample = new CalculateTransferMatrix();
+//        CalculateTransferMatrix testSample = new CalculateTransferMatrix();
+//        testSample.clearCommunitiesFromSQL();
 //        testSample.formCommunities();
 //        testSample.writeCommunitiesIntoSql();
-//        validateCommunities(1);
-        testSample.readCommunitiesFromSQL();
-        testSample.calculateTransferPossibility(1);
-        testSample.writeSequencePossibilityIntoSQL(1);
-        testSample.close();
+
+//        testSample.formSingleCommunity();
+
+//        validateCommunities(3);
+//        testSample.readCommunitiesFromSQL();
+//        testSample.calculateTransferPossibility(1);
+//        testSample.writeSequencePossibilityIntoSQL(1);
+//        testSample.calculateUsersInCommunity(1);
+//        testSample.close();
+
+        ImportData importData = new ImportData();
     }
 
     public static void validateCommunities(int communityNumber) throws Exception {
