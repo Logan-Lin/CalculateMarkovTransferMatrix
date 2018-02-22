@@ -1,13 +1,13 @@
 import java.io.*;
 import java.sql.*;
 
-public class ImportData {
+class ImportData {
 
 //	创建MachineLearning表格，把初始GPS点集导入到数据库中
 
     private Connection c;
 
-    public ImportData() {
+    ImportData() {
 
         DatabaseConnection d = new DatabaseConnection();
 

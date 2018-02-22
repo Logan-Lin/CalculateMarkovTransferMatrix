@@ -2,7 +2,6 @@ package entities;
 
 import sqlConnect.DBHelper;
 import transferMatrix.CalculateTransferMatrix;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;

@@ -20,7 +20,7 @@ public class SequenceCount {
         }
     }
 
-    public long getTotalCount() {
+    private long getTotalCount() {
         long sum = 0;
         for (int count : sequenceCount.values()) {
             sum += count;

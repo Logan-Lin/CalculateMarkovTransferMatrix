@@ -6,7 +6,7 @@ public class DatabaseConnection {
 
 	private Connection c;
 	
-	public DatabaseConnection()
+	DatabaseConnection()
 	{
 		try
 		{
